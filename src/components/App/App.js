@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 import Container from 'components/Container';
+import Searchbar from 'components/Searchbar';
 
 class App extends Component {
-  state = {};
+  state = {
+    photo: null,
+    loading: false,
+  };
 
   // Фазы жизненного цикла
   componentDidMount() {
     console.log('App componentDidMount');
+
+    this.setState({ loaing: true });
+
+    fetch(
+      'https://pixabay.com/api/?q=cat&page=1&key=22659377-0dd97b237805bca735c774318&image_type=photo&orientation=horizontal&per_page=12',
+    )
+      .then(res => res.json())
+      .then(photo => this.setState({ photo }))
+      .finally(() => this.setState({ loading: false }));
   }
 
   // Фазы жизненного цикла
@@ -19,7 +32,15 @@ class App extends Component {
   }
 
   render() {
-    return <Container></Container>;
+    return (
+      <Container>
+        <Searchbar></Searchbar>
+        {this.state.loading && <h1>Loading...</h1>}
+        {this.state.photo && (
+          <div>Тут будет фото после фетча и когда в стейт запишем</div>
+        )}
+      </Container>
+    );
   }
 }
 
