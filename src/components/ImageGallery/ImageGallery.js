@@ -1,5 +1,8 @@
 import { Component } from 'react';
+import { toast } from 'react-toastify';
+
 import ImageGalleryItem from 'components/ImageGalleryItem';
+import PhotosLoader from 'components/Loader/Loader';
 
 class ImageGallery extends Component {
   state = {
@@ -40,7 +43,7 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { photos, error, status } = this.state;
+    const { photos, status } = this.state;
     // const { searchName } = this.props;
 
     // State-машина
@@ -49,11 +52,12 @@ class ImageGallery extends Component {
     }
 
     if (status === 'pending') {
-      return <div>Loading...</div>;
+      return <PhotosLoader />;
     }
 
     if (status === 'rejected') {
-      return <p>{error.message}</p>;
+      //   return <p>{error.message}</p>;
+      return toast.error('Ooops... There are no photos on this result!');
     }
 
     if (status === 'resolved') {
