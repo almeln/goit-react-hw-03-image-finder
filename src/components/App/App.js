@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Container from 'components/Container';
 import Searchbar from 'components/Searchbar';
+import ImageGallery from 'components/ImageGallery';
 
 class App extends Component {
   state = {
@@ -47,6 +48,8 @@ class App extends Component {
       <Container>
         <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
         <ToastContainer autoClose={3000} />
+        <ImageGallery searchName={this.state.searchName} />
+
         {this.state.loading && <h1>Loading...</h1>}
         {this.state.photo && (
           <div>Тут будет фото после фетча и когда в стейт запишем</div>

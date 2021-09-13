@@ -16,8 +16,7 @@ class SearchBar extends Component {
 
     // Проверка на пустоту
     if (this.state.searchName.trim() === '') {
-      toast.error('Enter search name !');
-      return;
+      return toast.error('Enter search name !');
     }
 
     // В форму передали сабмит
