@@ -1,7 +1,10 @@
 import { Component } from 'react';
 
 class ImageGallery extends Component {
-  state = {};
+  state = {
+    photos: null,
+    loading: false,
+  };
 
   // Когда компонент обновляется (обновляются или пропсы или стейт)
   componentDidUpdate(prevProps, prevState) {
@@ -13,16 +16,28 @@ class ImageGallery extends Component {
       console.log('prevName', prevName);
       console.log('nextName', nextName);
 
+      this.setState({ loading: true });
+
       fetch(
         `https://pixabay.com/api/?q=${nextName}&page=1&key=22659377-0dd97b237805bca735c774318&image_type=photo&orientation=horizontal&per_page=12`,
       )
         .then(res => res.json())
-        .then(console.log);
+        .then(photos => this.setState({ photos: photos.hits }))
+        .finally(() => this.setState({ loading: false }));
     }
   }
 
   render() {
-    return <ul className="ImageGallery"></ul>;
+    const { photos, loading } = this.state;
+    const { searchName } = this.props;
+
+    return (
+      <ul className="ImageGallery">
+        {loading && <div>Loading...</div>}
+        {!searchName && <div>Введите критерий поиска</div>}
+        {photos && <div>{photos.id}</div>}
+      </ul>
+    );
   }
 }
 
