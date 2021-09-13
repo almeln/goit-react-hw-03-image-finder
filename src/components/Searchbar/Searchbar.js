@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { ImSearch } from 'react-icons/im';
+import { toast } from 'react-toastify';
 
 class SearchBar extends Component {
   state = {
@@ -12,6 +13,15 @@ class SearchBar extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
+    // Проверка на пустоту
+    if (this.state.searchName.trim() === '') {
+      toast.error('Enter search name !');
+      return;
+    }
+
+    // В форму передали сабмит
+    this.props.onSubmit(this.state.searchName);
 
     this.setState({ searchName: '' });
   };
@@ -28,8 +38,8 @@ class SearchBar extends Component {
           <input
             className="SearchForm-input"
             type="text"
-            autocomplete="off"
-            autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
             name="searchName"
             value={this.state.searchName}
