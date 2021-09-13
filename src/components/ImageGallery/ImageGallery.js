@@ -18,7 +18,7 @@ class ImageGallery extends Component {
       console.log('prevName', prevName);
       console.log('nextName', nextName);
 
-      this.setState({ loading: true });
+      this.setState({ loading: true, photos: null });
 
       fetch(
         `https://pixabay.com/api/?q=${nextName}&page=1&key=22659377-0dd97b237805bca735c774318&image_type=photo&orientation=horizontal&per_page=12`,
