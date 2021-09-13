@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import PhotosLoader from 'components/Loader/Loader';
+import { fetchPhotos } from '../../services/photos-api';
 
 class ImageGallery extends Component {
   state = {
@@ -24,21 +25,27 @@ class ImageGallery extends Component {
 
       this.setState({ status: 'pending' });
 
-      fetch(
-        `https://pixabay.com/api/?q=${nextName}&page=1&key=22659377-0dd97b237805bca735c774318&image_type=photo&orientation=horizontal&per_page=12`,
-      )
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-
-          return Promise.reject(new Error(`No result with name ${nextName}`));
-        })
+      fetchPhotos(nextName)
         .then(photos =>
           this.setState({ photos: photos.hits, status: 'resolved' }),
         )
         .catch(error => this.setState({ error, status: 'rejected' }));
-      // .finally(() => this.setState({ loading: false }));
+
+      //   fetch(
+      //     `https://pixabay.com/api/?q=${nextName}&page=1&key=22659377-0dd97b237805bca735c774318&image_type=photo&orientation=horizontal&per_page=12`,
+      //   )
+      //     .then(response => {
+      //       if (response.ok) {
+      //         return response.json();
+      //       }
+
+      //       return Promise.reject(new Error(`No result with name ${nextName}`));
+      //     })
+      //     .then(photos =>
+      //       this.setState({ photos: photos.hits, status: 'resolved' }),
+      //     )
+      //     .catch(error => this.setState({ error, status: 'rejected' }));
+      //   // .finally(() => this.setState({ loading: false }));
     }
   }
 
