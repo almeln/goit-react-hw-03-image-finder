@@ -69,7 +69,7 @@ class ImageGallery extends Component {
 
     if (status === 'resolved') {
       return (
-        <ul className="GalleryList">
+        <ul className="ImageGallery">
           {photos.map(photo => (
             <li className="ImageGalleryItem" key={photo.id}>
               <ImageGalleryItem src={photo.previewURL} alt={photo.tags} />

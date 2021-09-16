@@ -8,7 +8,16 @@ import ImageGallery from 'components/ImageGallery';
 class App extends Component {
   state = {
     searchName: '',
+    selectedPhoto: null,
+    page: 1,
   };
+
+  // Реагируем на состояние компонента Page
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.page !== this.state.page) {
+      // fetch
+    }
+  }
   // state = {
   //   photo: null,
   //   loading: false,
@@ -43,6 +52,9 @@ class App extends Component {
     this.setState({ searchName });
   };
 
+  // Для выбора картинки
+  // handleSelectedPhoto = imageURL => this.setState({ selectedPhoto: imageURL });
+
   render() {
     return (
       <Container>
@@ -50,13 +62,24 @@ class App extends Component {
         <ToastContainer autoClose={3000} />
         <ImageGallery searchName={this.state.searchName} />
 
-        {this.state.loading && <h1>Loading...</h1>}
+        {/* {this.state.loading && <h1>Loading...</h1>}
         {this.state.photo && (
           <div>Тут будет фото после фетча и когда в стейт запишем</div>
-        )}
+        )} */}
+
+        {/* Для модалки */}
+        {/* {this.state.selectedPhoto && <Modal />} */}
+
+        {/* LoadMoreBtn */}
+        {/* <button onClick={() => this.setState(p => ({ page: p + 1 }))}>
+          Load more
+        </button> */}
       </Container>
     );
   }
 }
+
+// Для модалки в ImageGallery добавить onSelect={this.handleSelectedPhoto}
+// map(i => <div onClick={() => onSelect(i.largeImageURL)}>{i.name}</div>);
 
 export default App;
