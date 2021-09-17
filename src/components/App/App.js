@@ -4,12 +4,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import Container from 'components/Container';
 import Searchbar from 'components/Searchbar';
 import ImageGallery from 'components/ImageGallery';
+import Modal from 'components/Modal';
 
 class App extends Component {
   state = {
     searchName: '',
     selectedPhoto: null,
+    selectedAlt: null,
     page: 1,
+    // showModal: false,
   };
 
   // Реагируем на состояние компонента Page
@@ -52,15 +55,43 @@ class App extends Component {
     this.setState({ searchName });
   };
 
+  // toggleModal = () => {
+  //   this.setState(({ showModal }) => ({
+  //     showModal: !showModal,
+  //   }));
+  // };
+
   // Для выбора картинки
-  // handleSelectedPhoto = imageURL => this.setState({ selectedPhoto: imageURL });
+  handleSelectedPhoto = (imageURL, description) =>
+    this.setState({
+      selectedPhoto: imageURL,
+      selectedAlt: description,
+    });
+
+  closeModal = () =>
+    this.setState({
+      selectedPhoto: null,
+      selectedAlt: null,
+    });
 
   render() {
     return (
       <Container>
         <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
         <ToastContainer autoClose={3000} />
-        <ImageGallery searchName={this.state.searchName} />
+        <ImageGallery
+          searchName={this.state.searchName}
+          onSelect={this.handleSelectedPhoto}
+        />
+
+        {/* <button type="button" onClick={this.toggleModal}>Open</button> */}
+        {this.state.selectedPhoto && (
+          <Modal onClose={this.closeModal}>
+            <img src={this.state.selectedPhoto} alt="" />
+            {/* <h1>Hello</h1>
+          <button type="button" onClick={this.toggleModal}>Close</button> */}
+          </Modal>
+        )}
 
         {/* {this.state.loading && <h1>Loading...</h1>}
         {this.state.photo && (
@@ -68,7 +99,7 @@ class App extends Component {
         )} */}
 
         {/* Для модалки */}
-        {/* {this.state.selectedPhoto && <Modal />} */}
+        {/* {this.state.selectedPhoto && <Modal></Modal>} */}
 
         {/* LoadMoreBtn */}
         {/* <button onClick={() => this.setState(p => ({ page: p + 1 }))}>
@@ -78,8 +109,5 @@ class App extends Component {
     );
   }
 }
-
-// Для модалки в ImageGallery добавить onSelect={this.handleSelectedPhoto}
-// map(i => <div onClick={() => onSelect(i.largeImageURL)}>{i.name}</div>);
 
 export default App;

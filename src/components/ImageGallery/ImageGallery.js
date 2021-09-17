@@ -14,22 +14,35 @@ class ImageGallery extends Component {
   };
 
   // Когда компонент обновляется (обновляются или пропсы или стейт)
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.searchName;
     const nextName = this.props.searchName;
     // Внутри компонента componentDidUpdate всегда обязатлеьно должна быть проверка, чтобы он не зациклился
     if (prevName !== nextName) {
-      console.log('Изменилось имя поиска');
-      console.log('prevName', prevName);
-      console.log('nextName', nextName);
+      try {
+        console.log('Изменилось имя поиска');
+        console.log('prevName', prevName);
+        console.log('nextName', nextName);
 
-      this.setState({ status: 'pending' });
+        this.setState({ status: 'pending' });
 
-      fetchPhotos(nextName)
-        .then(photos =>
+        await fetchPhotos(nextName).then(photos =>
           this.setState({ photos: photos.hits, status: 'resolved' }),
-        )
-        .catch(error => this.setState({ error, status: 'rejected' }));
+        );
+      } catch (error) {
+        this.setState({ error, status: 'rejected' });
+      }
+      // console.log('Изменилось имя поиска');
+      // console.log('prevName', prevName);
+      // console.log('nextName', nextName);
+
+      // this.setState({ status: 'pending' });
+
+      // await fetchPhotos(nextName)
+      //   .then(photos =>
+      //     this.setState({ photos: photos.hits, status: 'resolved' }),
+      //   )
+      // .catch(error => this.setState({ error, status: 'rejected' }));
 
       //   fetch(
       //     `https://pixabay.com/api/?q=${nextName}&page=1&key=22659377-0dd97b237805bca735c774318&image_type=photo&orientation=horizontal&per_page=12`,
@@ -71,13 +84,21 @@ class ImageGallery extends Component {
       return (
         <ul className="ImageGallery">
           {photos.map(photo => (
-            <li className="ImageGalleryItem" key={photo.id}>
-              <ImageGalleryItem src={photo.previewURL} alt={photo.tags} />
+            <li
+              className="ImageGalleryItem"
+              key={photo.id}
+              onClick={() =>
+                this.props.onSelect(photo.largeImageURL, photo.tags)
+              }
+            >
+              <ImageGalleryItem src={photo.webformatURL} alt={photo.tags} />
             </li>
           ))}
         </ul>
       );
     }
+
+    // onClick={() => this.props.onSelect(photo.largeImageURL)}
 
     // return (
     //   <div>
