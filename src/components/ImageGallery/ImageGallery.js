@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import PhotosLoader from 'components/Loader/Loader';
@@ -36,6 +37,9 @@ class ImageGallery extends Component {
         );
       } catch (error) {
         this.setState({ error, status: 'rejected' });
+      }
+      if (this.state.photos.length === 0) {
+        return toast.error('Ooops... There are no photos on this result!');
       }
       // console.log('Изменилось имя поиска');
       // console.log('prevName', prevName);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from 'react-hot-toast';
+// import { ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import Container from 'components/Container';
 import Searchbar from 'components/Searchbar';
 import ImageGallery from 'components/ImageGallery';
@@ -11,20 +12,7 @@ class App extends Component {
     searchName: '',
     selectedPhoto: null,
     selectedAlt: null,
-    page: 1,
-    // showModal: false,
   };
-
-  // Реагируем на состояние компонента Page
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.page !== this.state.page) {
-      // fetch
-    }
-  }
-  // state = {
-  //   photo: null,
-  //   loading: false,
-  // };
 
   // // Фазы жизненного цикла
   // componentDidMount() {
@@ -55,12 +43,6 @@ class App extends Component {
     this.setState({ searchName });
   };
 
-  // toggleModal = () => {
-  //   this.setState(({ showModal }) => ({
-  //     showModal: !showModal,
-  //   }));
-  // };
-
   // Для выбора картинки
   handleSelectedPhoto = (imageURL, description) =>
     this.setState({
@@ -78,22 +60,17 @@ class App extends Component {
     return (
       <Container>
         <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
-        <ToastContainer autoClose={3000} />
+        {/* <ToastContainer autoClose={3000} /> */}
         <ImageGallery
           searchName={this.state.searchName}
           onSelect={this.handleSelectedPhoto}
         />
-
         {this.state.selectedPhoto && (
           <Modal onClose={this.closeModal}>
             <img src={this.state.selectedPhoto} alt={this.state.selectedAlt} />
           </Modal>
         )}
-
-        {/* LoadMoreBtn */}
-        {/* <button onClick={() => this.setState(p => ({ page: p + 1 }))}>
-          Load more
-        </button> */}
+        <Toaster position="top-right" />
       </Container>
     );
   }
