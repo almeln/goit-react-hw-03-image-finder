@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 // import { toast } from 'react-toastify';
 import toast from 'react-hot-toast';
 
@@ -147,8 +148,6 @@ class ImageGallery extends Component {
       );
     }
 
-    // onClick={() => this.props.onSelect(photo.largeImageURL)}
-
     // return (
     //   <div>
     //     {error && <h1>{error.message}</h1>}
@@ -168,5 +167,10 @@ class ImageGallery extends Component {
     // );
   }
 }
+
+ImageGallery.propTypes = {
+  searchName: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired,
+};
 
 export default ImageGallery;

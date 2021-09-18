@@ -1,6 +1,8 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { ImSearch } from 'react-icons/im';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 class SearchBar extends Component {
   state = {
@@ -49,5 +51,9 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
