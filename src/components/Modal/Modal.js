@@ -38,8 +38,10 @@ class Modal extends Component {
   };
 
   render() {
+    const { handleOverlayClick } = this;
+
     return createPortal(
-      <Overlay onClick={this.handleOverlayClick}>
+      <Overlay onClick={handleOverlayClick}>
         <ModalWindow>{this.props.children}</ModalWindow>
       </Overlay>,
       modalRoot,

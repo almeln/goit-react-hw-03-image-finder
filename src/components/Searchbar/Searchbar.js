@@ -21,23 +21,28 @@ class SearchBar extends Component {
   };
 
   handleSubmit = event => {
+    const { searchName } = this.state;
+
     event.preventDefault();
 
     // Проверка на пустоту
-    if (this.state.searchName.trim() === '') {
+    if (searchName.trim() === '') {
       return toast.error('Enter search name !');
     }
 
     // В форму передали сабмит
-    this.props.onSubmit(this.state.searchName);
+    this.props.onSubmit(searchName);
 
     this.setState({ searchName: '' });
   };
 
   render() {
+    const { handleSubmit, handleNameChange } = this;
+    const { searchName } = this.state;
+
     return (
       <SearchBarHeader>
-        <SearchForm onSubmit={this.handleSubmit}>
+        <SearchForm onSubmit={handleSubmit}>
           <SearchFormButton type="submit">
             <ImSearch />
             <SearchFormButtonLabel>Search</SearchFormButtonLabel>
@@ -49,8 +54,8 @@ class SearchBar extends Component {
             autoFocus
             placeholder="Search images and photos"
             name="searchName"
-            value={this.state.searchName}
-            onChange={this.handleNameChange}
+            value={searchName}
+            onChange={handleNameChange}
           />
         </SearchForm>
       </SearchBarHeader>

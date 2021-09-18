@@ -58,17 +58,17 @@ class App extends Component {
     });
 
   render() {
+    const { handleFormSubmit, handleSelectedPhoto, closeModal } = this;
+    const { searchName, selectedPhoto, selectedAlt } = this.state;
+
     return (
       <Container>
-        <Searchbar onSubmit={this.handleFormSubmit}></Searchbar>
+        <Searchbar onSubmit={handleFormSubmit}></Searchbar>
         {/* <ToastContainer autoClose={3000} /> */}
-        <ImageGallery
-          searchName={this.state.searchName}
-          onSelect={this.handleSelectedPhoto}
-        />
+        <ImageGallery searchName={searchName} onSelect={handleSelectedPhoto} />
         {this.state.selectedPhoto && (
-          <Modal onClose={this.closeModal}>
-            <img src={this.state.selectedPhoto} alt={this.state.selectedAlt} />
+          <Modal onClose={closeModal}>
+            <img src={selectedPhoto} alt={selectedAlt} />
           </Modal>
         )}
         <Toaster position="top-right" />

@@ -103,9 +103,11 @@ class ImageGallery extends Component {
 
   togleLoadMoreBtn = () => {
     console.log('btn-click');
+
     this.setState({
       page: this.state.page + 1,
     });
+
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       behavior: 'smooth',
@@ -131,23 +133,21 @@ class ImageGallery extends Component {
     }
 
     if (status === 'resolved') {
+      const { togleLoadMoreBtn } = this;
+
       return (
         <>
           <ImageGalleryList>
-            {photos.map(photo => (
+            {photos.map(({ id, largeImageURL, tags, webformatURL }) => (
               <ImageGalleryListItem
-                key={photo.id}
-                onClick={() =>
-                  this.props.onSelect(photo.largeImageURL, photo.tags)
-                }
+                key={id}
+                onClick={() => this.props.onSelect(largeImageURL, tags)}
               >
-                <ImageGalleryItem src={photo.webformatURL} alt={photo.tags} />
+                <ImageGalleryItem src={webformatURL} alt={tags} />
               </ImageGalleryListItem>
             ))}
           </ImageGalleryList>
-          {photos.length >= 12 && (
-            <Button onClick={this.togleLoadMoreBtn}></Button>
-          )}
+          {photos.length >= 12 && <Button onClick={togleLoadMoreBtn}></Button>}
         </>
       );
     }
