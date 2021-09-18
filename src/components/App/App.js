@@ -84,22 +84,11 @@ class App extends Component {
           onSelect={this.handleSelectedPhoto}
         />
 
-        {/* <button type="button" onClick={this.toggleModal}>Open</button> */}
         {this.state.selectedPhoto && (
           <Modal onClose={this.closeModal}>
-            <img src={this.state.selectedPhoto} alt="" />
-            {/* <h1>Hello</h1>
-          <button type="button" onClick={this.toggleModal}>Close</button> */}
+            <img src={this.state.selectedPhoto} alt={this.state.selectedAlt} />
           </Modal>
         )}
-
-        {/* {this.state.loading && <h1>Loading...</h1>}
-        {this.state.photo && (
-          <div>Тут будет фото после фетча и когда в стейт запишем</div>
-        )} */}
-
-        {/* Для модалки */}
-        {/* {this.state.selectedPhoto && <Modal></Modal>} */}
 
         {/* LoadMoreBtn */}
         {/* <button onClick={() => this.setState(p => ({ page: p + 1 }))}>
