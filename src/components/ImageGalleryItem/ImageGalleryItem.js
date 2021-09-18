@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ImageGalleryItemImage } from './ImageGalleryItem.styled';
 
 const ImageGalleryItem = ({ src, alt }) => (
-  <img src={src} alt={alt} className="ImageGalleryItem-image" />
+  <ImageGalleryItemImage src={src} alt={alt} />
 );
 
 ImageGalleryItem.propTypes = {

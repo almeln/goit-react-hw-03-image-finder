@@ -2,6 +2,11 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 // import { toast } from 'react-toastify';
 import toast from 'react-hot-toast';
+import {
+  NoNameDiv,
+  ImageGalleryList,
+  ImageGalleryListItem,
+} from './ImageGallery.styled';
 
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import PhotosLoader from 'components/Loader/Loader';
@@ -113,7 +118,7 @@ class ImageGallery extends Component {
 
     // State-машина
     if (status === 'idle') {
-      return <div>Enter search name</div>;
+      return <NoNameDiv>Enter search name</NoNameDiv>;
     }
 
     if (status === 'pending') {
@@ -128,19 +133,18 @@ class ImageGallery extends Component {
     if (status === 'resolved') {
       return (
         <>
-          <ul className="ImageGallery">
+          <ImageGalleryList>
             {photos.map(photo => (
-              <li
-                className="ImageGalleryItem"
+              <ImageGalleryListItem
                 key={photo.id}
                 onClick={() =>
                   this.props.onSelect(photo.largeImageURL, photo.tags)
                 }
               >
                 <ImageGalleryItem src={photo.webformatURL} alt={photo.tags} />
-              </li>
+              </ImageGalleryListItem>
             ))}
-          </ul>
+          </ImageGalleryList>
           {photos.length >= 12 && (
             <Button onClick={this.togleLoadMoreBtn}></Button>
           )}

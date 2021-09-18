@@ -1,10 +1,10 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import css from './Loader.module.css';
+import { Spinner } from './Loader.styled';
 
 const PhotosLoader = () => (
-  <div className={css.loader}>
+  <Spinner>
     <Loader
       type="Circles"
       color="#00BFFF"
@@ -12,7 +12,7 @@ const PhotosLoader = () => (
       width={80}
       timeout={3000} //3 secs
     />
-  </div>
+  </Spinner>
 );
 
 export default PhotosLoader;

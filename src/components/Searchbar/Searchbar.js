@@ -1,5 +1,12 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import {
+  SearchBarHeader,
+  SearchForm,
+  SearchFormButton,
+  SearchFormButtonLabel,
+  SearchFormInput,
+} from './SearchBar.styled';
 
 import { ImSearch } from 'react-icons/im';
 import toast from 'react-hot-toast';
@@ -29,15 +36,14 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <header className="Searchbar">
-        <form onSubmit={this.handleSubmit} className="SearchForm">
-          <button type="submit" className="SearchForm-button">
+      <SearchBarHeader>
+        <SearchForm onSubmit={this.handleSubmit}>
+          <SearchFormButton type="submit">
             <ImSearch />
-            <span className="SearchForm-button-label">Search</span>
-          </button>
+            <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+          </SearchFormButton>
 
-          <input
-            className="SearchForm-input"
+          <SearchFormInput
             type="text"
             autoComplete="off"
             autoFocus
@@ -46,8 +52,8 @@ class SearchBar extends Component {
             value={this.state.searchName}
             onChange={this.handleNameChange}
           />
-        </form>
-      </header>
+        </SearchForm>
+      </SearchBarHeader>
     );
   }
 }
